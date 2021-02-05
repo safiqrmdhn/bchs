@@ -1,0 +1,19 @@
+{{ define "main" }}
+  <div class="container w-full pt-5 mx-auto">
+    <div
+      class="w-full px-4 text-black md:px-6"
+    >
+      <div class="px-4">
+        <div class="items-center justify-center block md:flex-row md:flex md:flex-wrap">
+          {{- partial "ads/banner-468x60" . }}
+
+          <div class="markdown">
+            {{ .Content }}
+          </div>
+          
+          {{- partial "ads/banner-728x90" . }}
+        </div>
+      </div>
+    </div>
+  </div>
+{{ end }}

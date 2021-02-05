@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  {{- partial "head/meta" . }}
+  {{- partial "head/meta-jsonld" . }}
+  {{- partialCached "head/styles" . }}
+  {{- partial "head/scripts" . }}
+  {{- partial "head/services" . }}
+  {{- partial "head/custom-head" . }}
+  <script async src="https://arc.io/widget.min.js#PLarSPjj"></script>
+</head>
+
+<body>
+  <header>
+    {{- partial "navbar/site-nav" . }}
+  </header>
+
+  <main>
+    <div class="w-full py-5 mx-auto my-16 bg-white border border-gray-500 rounded-lg md:my-20 md:max-w-4xl">
+      {{- block "main" . }}{{- end }}
+    </div>
+  </main>
+
+  <footer>
+    {{- partial "footer" . }}
+    {{- partial "ads/banner-fixed" . }}
+    {{- partial "services/cookie-consent" . }}
+    <script>
+      document.getElementById('nav-toggle').onclick = function(){
+        document.getElementById("nav-content").classList.toggle("hidden");
+      }
+    </script>
+    {{- partial "ads/bar-social" . }}
+  </footer>
+</body>
+
+</html>

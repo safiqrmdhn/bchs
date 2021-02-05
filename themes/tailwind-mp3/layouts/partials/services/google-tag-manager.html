@@ -1,0 +1,14 @@
+{{ if not (in (.Site.BaseURL | string) "localhost") }}
+  {{ if .Site.Params.googleTagManager}}  
+    <link href="https://www.googletagmanager.com" rel="preconnect" crossorigin>
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleTagManager }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', '{{ .Site.Params.googleTagManager }}');
+    </script>
+  {{ end }}
+{{ end }}

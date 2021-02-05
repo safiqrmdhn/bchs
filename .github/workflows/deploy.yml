@@ -1,0 +1,69 @@
+name: Web-Deploy Jaaxs
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  web-deploy:
+    name: Web-Deploy Jaaxs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: 12
+
+      - name: Install Surge and Hugo
+        run: npm install -g surge hugo-bin
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Static HTML
+        run: hugo
+
+      - name: Deploy to Surge
+        run: surge ./public https://mp3-free-downloads-edgar.jaaxsapp.com/ --token ${{ secrets.SURGE_TOKEN }}
+
+      - name: Setup Cloudflare DNS
+        uses: rez0n/create-dns-record@v2.1
+        with:
+          type: CNAME
+          name: mp3-free-downloads-edgar
+          content: na-west1.surge.sh
+          ttl: 1
+          proxied: true
+          token: ${{ secrets.CLOUDFLARE_TOKEN }}
+          zone: ${{ secrets.CLOUDFLARE_ZONE }}
+
+      - name: Setup Google Search Console
+        uses: choirulanwar/g-search-console@v1
+        with:
+          key: ${{ secrets.OAUTH_KEY }}
+          token: ${{ secrets.SEARCH_CONSOLE_TOKEN }}
+          siteUrl: https://mp3-free-downloads-edgar.jaaxsapp.com/
+          owners: '["dmcasongs-anaconda-4391@dmcasongs-great-white-shark-46.iam.gserviceaccount.com","andreatagart-gorilla-6827@andreatagart-chicken-2503.iam.gserviceaccount.com","tazakumpar-little-penguin-8009@tazakumpar-gerbils-1783.iam.gserviceaccount.com","jodiekurnia-ryu-small-clawed-a@jodiekurnia-ryu-fish-359.iam.gserviceaccount.com","dokinkomo-radiated-tortoise-67@dokinkomo-fox-3109.iam.gserviceaccount.com","domenicasandlin-mice-4447@domenicasandlin-waxwing-5077.iam.gserviceaccount.com","onenightmusictk-bee-4159@onenightmusictk-ratfish-3407.iam.gserviceaccount.com","debrarodgie-zebra-6163@debrarodgie-giant-anteater-724.iam.gserviceaccount.com","zahiraainstitute-bustard-8839@zahiraainstitute-ring-tailed-m.iam.gserviceaccount.com","rifaixgen-lion-8059@rifaixgen-dove-7451.iam.gserviceaccount.com","kukarbento-cuban-amazon-parrot@kukarbento-cockroach-379.iam.gserviceaccount.com","onenightmusictk-bee-4159@onenightmusictk-carp-3613.iam.gserviceaccount.com","rachmawatiafrida-rabbit-1021@rachmawatiafrida-tortoise-6073.iam.gserviceaccount.com","aleciawough-1@aleciawough-yak-7741.iam.gserviceaccount.com","felishapeachy-horse-8387@forward-byte-299802.iam.gserviceaccount.com","applepoleme-guinea-9157@applepoleme-indian-rhinoceros.iam.gserviceaccount.com","payospiro-burro-2273@payospiro-snow-leopard-7691.iam.gserviceaccount.com","dariagrenberg-2@dariagrenberg-bandicoot-6571.iam.gserviceaccount.com","musicyanwm-macaw-1481@musicyanwm-buffalo-3251.iam.gserviceaccount.com","tokodomin-guinea-fowl-6473@tokodomin-sheep-6367.iam.gserviceaccount.com","rachaelburby-donkey-9697@rachaelburby-sarcastic-fringeh.iam.gserviceaccount.com","tamumoden-silverside-fish-8731@tamumoden-african-wild-dog-824.iam.gserviceaccount.com","rumpisekret-ostrich-9769@rumpisekret-snakes-6701.iam.gserviceaccount.com","stephaniesephard-old-world-fly@stephaniesephard-yak-173.iam.gserviceaccount.com","miitahandika-ducks-8093@miitahandika-squirrel-monkey-3.iam.gserviceaccount.com","latoyafowlery-tamarin-3793@latoyafowlery-blue-tang-7583.iam.gserviceaccount.com","zahiraainstitute-bustard-8839@zahiraainstitute-baboon-2503.iam.gserviceaccount.com","fahadopon-toad-3191@fahadopon-vaquita-7109.iam.gserviceaccount.com","aleciawough-cuckoo-2053@aleciawough-red-ruffed-lemur-9.iam.gserviceaccount.com","ytconverterme-fiddler-crab-161@ytconverterme-weasel-8311.iam.gserviceaccount.com","psmmentari-anoa-2309@psmmentari-american-alligator.iam.gserviceaccount.com","roksimasko-sun-bear-8753@roksimasko-banded-sea-krait-86.iam.gserviceaccount.com","ytconverterme-fiddler-crab-161@ytconverterme-goose-5281.iam.gserviceaccount.com","layeringweb-zebu-1657@layeringweb-turtle-2909.iam.gserviceaccount.com","carolhawkine-silkworm-1543@carolhawkine-turtle-5297.iam.gserviceaccount.com","claudiealmanza-pronghorn-5381@claudiealmanza-sheep-2861.iam.gserviceaccount.com","pattysoliza-stick-insects-9323@project4-174206.iam.gserviceaccount.com","choirulanwarvertex-giant-torto@choirulanwarvertex-cardinal-14.iam.gserviceaccount.com","onenightmusictk-bee-4159@onenightmusictk-buffalo-1087.iam.gserviceaccount.com","dahudomin-turtles-2591@dahudomin-kultarr-9677.iam.gserviceaccount.com","onenightmusictk-bee-4159@onenightmusictk-poison-dart-fr.iam.gserviceaccount.com","claudiealmanza-pronghorn-5381@claudiealmanza-ponies-5623.iam.gserviceaccount.com","kopolmolis-caterpillar-4153@kopolmolis-pantropical-spotted.iam.gserviceaccount.com","musiconlinewebmaster-african-w@musiconlinewebmaster-macaw-859.iam.gserviceaccount.com","jombokolop-gecko-37@jombokolop-worm-5861.iam.gserviceaccount.com","sokohandoko-red-ruffed-lemur-6@sokohandoko-white-throated-bee.iam.gserviceaccount.com","ionawagoner-spotted-porcupinef@ionawagoner-cows-769.iam.gserviceaccount.com","nomikjojo-pig-8369@nomikjojo-hyena-9829.iam.gserviceaccount.com","glendamarshe-quokka-3@glendamarshe-fisher-1493.iam.gserviceaccount.com","komosrondi-guinea-pigs-9371@komosrondi-yak-5897.iam.gserviceaccount.com","shanonderick-carp-4903@shanonderick-flat-headed-cat-7.iam.gserviceaccount.com","kennagoode-terrible-claw-lobst@project9-176607.iam.gserviceaccount.com","fanyfaulkner-bushbaby-7187@fanyfaulkner-tasmanian-devil-6.iam.gserviceaccount.com","dmcasongs-anaconda-4391@dmcasongs-turkey-409.iam.gserviceaccount.com","nomikjojo-pig-8369@nomikjojo-tarantula-9433.iam.gserviceaccount.com"]'
+          sitemapFile: x_sitemap.xml
+
+      - name: Ping Sitemap to SE
+        uses: atymic/sitemap-ping-action@master
+        with:
+          sitemap-url: https://mp3-free-downloads-edgar.jaaxsapp.com/x_sitemap.xml
+
+      - name: Submit site to Indexer Machine
+        uses: choirulanwar/g-site-publisher@v1
+        with:
+          projectId: ${{ github.event.repository.name }}
+          siteUrl: https://mp3-free-downloads-edgar.jaaxsapp.com/
+          sitemapFile: x_sitemap.xml
+
+      - name: Set Repository to Private
+        uses: choirulanwar/set-private-repo@v1
+        with:
+          token: ${{ secrets.JAAXS_TOKEN }}

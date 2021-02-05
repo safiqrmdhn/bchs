@@ -1,0 +1,92 @@
+baseURL = "https://mp3-free-downloads-edgar.jaaxsapp.com/"
+languageCode = "en-us"
+theme = "tailwind-mp3"
+
+enableEmoji = true
+enableRobotsTXT = true
+canonifyURLs = true
+
+disableKinds = ["section", "taxonomy", "taxonomyTerm"]
+
+[params]
+  title = "Mp3 Free Downloads Edgar"
+  description = "Mp3 Free Downloads Edgar"
+  tagline = "Mp3 Free Downloads Edgar"
+  useFaviconGenerator = false # https://www.favicon-generator.org/
+  about = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel mi ut felis tempus commodo nec id erat. Suspendisse consectetur dapibus velit ut lacinia. &copy;{year}."
+
+  # whoami
+  author = "DK"
+  logo = "https://via.placeholder.com/512.png?text=DK"
+  header = "Week In Memes"
+
+  # service
+  googleTagManager = ""
+  histats = "4485045"
+  cookieConsent = true
+
+  # ads
+  socialBar = true
+  banner300x250 = true
+  banner468x60 = true
+  banner728x90 = true
+  bannerFixed = true
+  bannerInArticle = true
+  directLink = true
+
+[permalinks]
+  post = "/read-online/:slug/"
+  page = "/page/:slug/"
+
+[menu]
+  [[main]]
+    identifier = "page"
+    name = "Home"
+    url = "/"
+    weight = 1
+
+  [[main]]
+    identifier = "page"
+    name = "DMCA"
+    url = "/page/dmca/"
+    weight = 2
+
+  [[main]]
+    identifier = "page"
+    name = "Contact"
+    url = "/page/contact/"
+    weight = 3
+
+  [[main]]
+    identifier = "page"
+    name = "Privacy Policy"
+    url = "/page/privacy-policy/"
+    weight = 4
+
+  [[main]]
+    identifier = "page"
+    name = "Copyright"
+    url = "/page/copyright/"
+    weight = 5
+
+[minify]
+  minifyOutput = true
+
+[outputs]
+  home = ["RSS", "HTML"]
+
+[outputFormats]
+[outputFormats.RSS]
+  mediatype = "application/rss"
+  baseName = "x_feed"
+
+[sitemap]
+  changefreq = "monthly"
+  filename = "x_sitemap.xml"
+  priority = 0.7
+
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

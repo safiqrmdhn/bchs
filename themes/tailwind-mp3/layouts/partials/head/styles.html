@@ -1,0 +1,4 @@
+{{ $css := resources.Get "css/style.css" }}
+{{ $style := $css | resources.PostCSS | resources.Minify | resources.Fingerprint "md5" }}
+<link rel="stylesheet" href="{{ $style.Permalink }}" />
+<style>figure img{display:block;margin-left:auto;margin-right:auto}</style>

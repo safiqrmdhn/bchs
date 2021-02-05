@@ -1,0 +1,57 @@
+{{ define "main" }}
+  <div class="container w-full pt-5 mx-auto">
+    <div
+      class="w-full px-4 text-black md:px-6"
+    >
+      <div class="px-4">
+        <div class="items-center justify-center block md:flex-row md:flex md:flex-wrap">
+        
+          {{- partial "ads/banner-468x60" . }}
+
+          <div class="flex-wrap items-center justify-between block md:flex">
+            {{ $paginator := .Paginate (where .Site.RegularPages "Type" "post") 9 }}
+              {{ range $paginator.Pages }}
+                <div class="w-full mb-8 md:w-1/4 md:mx-1">
+                  <div class="relative overflow-hidden bg-white rounded-lg shadow-lg hover:shadow-2xl">
+                    {{ range first 1 .Params.Videos }}
+                      <img
+                        class="object-cover object-center w-full h-56"
+                        loading="lazy"
+                        src='{{ if eq ._id "" }}https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh_l3eQ5xwiPy07kGEXjmjgmBKBRB7H2mRxCGhv1tFWg5c_mWT{{else}}https://i.ytimg.com/vi/{{ ._id }}/hqdefault.jpg{{ end }}'
+                        alt="{{ .title }}"
+                      />
+                    {{ end }}
+                    <div class="flex flex-col justify-center h-auto p-3 md:h-auto">
+                      <h6>
+                        <a
+                          href="{{ .RelPermalink }}"
+                          class="block text-lg font-semibold text-black md:text-base hover:text-blue-500"
+                        >
+                          {{ .Title }}
+                        </a>
+                      </h6>
+                      <div class="mt-1 mb-3 text-sm text-black">
+                        <span><time>{{ .PublishDate.Format "Jan 2, 2006" }}</time></span> - 
+                        <span>{{ .ReadingTime }} mins read </span>
+                      </div>
+                      <div
+                        class="block text-sm text-black md:text-xs"
+                      >
+                        {{ .Summary | truncate 50 }}.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {{ end }}
+          </div>
+
+          {{- partial "ads/banner-728x90" . }}
+
+          <div class="flex flex-col items-center justify-center">
+            {{- partial "pagination/post-list.html" . }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{ end }}

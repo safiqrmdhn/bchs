@@ -1,0 +1,23 @@
+{
+  "name": "hugo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fullhuman/postcss-purgecss": "^2.1.0",
+    "autoprefixer": "^9.7.4",
+    "postcss-cli": "^7.1.0",
+    "tailwindcss": "^1.2.0"
+  },
+  "scripts": {
+    "start": "hugo server --config _data/config/_localhost.toml",
+    "build": "hugo --config _data/config/_localhost.toml",
+    "createnew": "aero create --name your-site-name",
+    "hugo-dev": "hugo server --config _data/config/__localhost.toml",
+    "hugo-build": "hugo --config _data/config/__localhost.toml",
+    "hugo-bnd": "hugo --config _data/config/robert-tofzemsa-11.toml && cd _data/public/robert-tofzemsa-11 && aero deploy"
+  }
+}

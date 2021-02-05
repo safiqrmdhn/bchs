@@ -1,0 +1,22 @@
+{{ if eq .Site.Params.cookieConsent true }}
+  {{ $css := resources.Get "css/cookieconsent.css" }}
+  {{ $js := resources.Get "js/cookieconsent.js" }}
+  {{ $style := $css | resources.Minify | resources.Fingerprint "md5" }}
+  {{ $script := $js | resources.Minify | resources.Fingerprint "md5" }}
+  <link rel="stylesheet" type="text/css" href="{{ $style.Permalink }}" />
+  <script src="{{ $script.Permalink }}"></script>
+  <script>
+  window.addEventListener("load", function(){
+  window.cookieconsent.initialise({
+    "palette": {
+      "popup": {
+        "background": "#2766D6",
+        "text": "#fff"
+      },
+      "button": {
+        "background": "#fff"
+      }
+    }
+  })});
+  </script>
+{{ end }}

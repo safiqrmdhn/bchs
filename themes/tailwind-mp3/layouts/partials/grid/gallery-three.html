@@ -1,0 +1,14 @@
+<div class="px-6 py-2 md:px-16 md:py-8 masonry">
+  {{ with .Params.Videos }}
+    {{ range after 14 . }}
+      <div class="mb-8 overflow-hidden rounded-lg">
+        <div class="relative cursor-pointer">
+          <img class="rounded" src="https://i.ytimg.com/vi/{{ ._id }}/hqdefault.jpg" alt="{{ .title }}" onerror="this.onerror=null;this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQh_l3eQ5xwiPy07kGEXjmjgmBKBRB7H2mRxCGhv1tFWg5c_mWT';"/>
+          <div class="absolute bottom-0 w-full h-24 px-4 pt-6 overlay">
+            <a href="https://youtu.be/{{ ._id }}" target="_blank" class="text-sm font-semibold text-white md:text-base hover:underline" title="{{ .title }}">{{ .title }}</a>
+          </div>
+        </div>
+      </div>
+    {{ end }}
+  {{ end }}
+</div>

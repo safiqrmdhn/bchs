@@ -1,0 +1,36 @@
+{{ define "main" }}
+  <div class="container w-full pt-5 mx-auto">
+    <div
+      class="w-full px-4 text-black md:px-6"
+    >
+      <div class="mb-6 text-center">
+        <h1 class="text-3xl font-semibold leading-tight">{{ .Title }}</h1>
+        <time>
+          <span class="text-sm text-gray-800">Published on {{ .PublishDate.Format "January 2, 2006" }}</span>
+        </time>
+      </div>
+
+      <div class="px-4">
+        <div class="items-center justify-center block md:flex-row md:flex md:flex-wrap">
+          {{- partial "ads/banner-468x60" . }}
+
+          {{ with .Params.Links }}
+            {{ range first 1 . }}
+              <p class="markdown">Read more: <a href="{{ .url | safeURL }}" title="{{ .title }}">{{ .title }}</a></p>
+            {{ end }}
+          {{ end }}
+
+          <div class="markdown">{{ replace (replace (replace (replace .Content "<!--inArticleAds-->" (partial "ads/banner-inarticle" .)) "<!--galleryOne-->" (partial "grid/gallery-one" .)) "<!--galleryTwo-->" (partial "grid/gallery-two" .)) "<!--galleryThree-->" (partial "grid/gallery-three" .) | safeHTML }}</div>
+
+          {{ with .Params.Links }}
+            {{ range after 1 . }}
+              <p class="markdown">Read more: <a href="{{ .url | safeURL }}" title="{{ .title }}">{{ .title }}</a></p>
+            {{ end }}
+          {{ end }}
+
+          {{- partial "ads/banner-728x90" . }}
+        </div>
+      </div>
+    </div>
+  </div>
+{{ end }}
