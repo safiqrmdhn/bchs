@@ -9,19 +9,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repo
+      - id: CHECKOUT_REPO
+        name: Checkout Repo
         uses: actions/checkout@v2
 
-      - name: Setup Node
+      - id: SETUP_NODE
+        name: Setup Node
         uses: actions/setup-node@v2-beta
         with:
           node-version: 12
 
-      - name: Install Surge and Hugo
+      - id: INSTALL_HUGO_AND_CLOUD_CLI
+        name: Install Surge and Hugo
         run: npm install -g surge hugo-bin
 
-      - name: Install Dependencies
+      - id: INSTALL_NODE_DEPENDENCIES
+        name: Install Dependencies
         run: npm install
 
-      - name: Build Static HTML
+      - id: BUILD_HUGO_STATIC_HTML
+        name: Build Static HTML
         run: hugo
